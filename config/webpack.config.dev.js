@@ -3,13 +3,11 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'inline-source-map',
+    devtool: 'eval-source-map',
     devServer: {
-        inline: true,
         historyApiFallback: true,
         host: 'localhost',
         port: 8080,
-        hot: true
     },
     entry: [
         `${require.resolve('webpack-dev-server/client')}?/`,

@@ -1,20 +1,56 @@
-<h1>Article Form</h1>
-<span>ID: {{vm.articleID}}</span>
-<form>
-    <p>
-        <label for="title">Title: </label>
-        <input type="text" name="title" id="title" ng-bind="article.title">
-    </p>
-    <p>
-        <label for="description">Description: </label>
-        <textarea name="description" id="description" ng-bind="article.description" cols="30" rows="10"></textarea>
-    </p>
-    <p>
-        <label for="content">Content: </label>
-        <textarea name="content" id="content" ng-bind="article.content" cols="30" rows="10"></textarea>
-    </p>
-    <p>
-        <label for="tags">Tags: </label>
-        <input type="text" name="tags" id="tags" ng-bind="article.tags">
-    </p>
-</form>
+<div class="row">
+    <div class="col-sm-4">
+        <a ng-href="/article" class="btn btn-primary btn-sm active">Articles list</a>
+    </div>
+    <div class="col-sm-4">
+        <span ng-show="vm.article._id">ID: {{vm.article._id}}</span>
+    </div>
+</div>
+<div class="row">
+    <form novalidate name="form">
+        <div ng-class="{
+            'has-error': form.header.$error.required,
+            'has-feedback': form.header.$error.required,
+            'form-group': true
+        }">
+            <label for="header">Header: </label>
+            <input class="form-control" type="text" name="header" id="header" ng-model="vm.article.header" required>
+            <span ng-show="form.header.$error.required" class="help-block">Header is required</span>
+            <span ng-show="form.header.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+        </div>
+        <div class="form-group">
+            <label for="description">Description: </label>
+            <textarea
+                    class="form-control"
+                    name="description"
+                    id="description"
+                    ng-model="vm.article.description"
+                    rows="5"
+            ></textarea>
+        </div>
+        <div ng-class="{
+            'has-error': form.content.$error.required || form.content.$error.minlength,
+            'has-feedback': form.content.$error.required || form.content.$error.minlength,
+            'form-group': true
+        }">
+            <label for="content">Content: </label>
+            <textarea
+                    class="form-control"
+                    name="content"
+                    id="content"
+                    ng-model="vm.article.content"
+                    rows="5"
+                    minlength="20"
+                    required
+            ></textarea>
+            <span ng-show="form.content.$error.required" class="help-block">Header is required</span>
+            <span ng-show="form.content.$error.minlength" class="help-block">At least 20 symbols required</span>
+            <span ng-show="form.content.$error.required || form.content.$error.minlength"
+                  class="glyphicon glyphicon-remove form-control-feedback"
+            ></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-click="vm.saveArticle()" ng-disabled="!form.$valid">Save</button>
+        </div>
+    </form>
+</div>

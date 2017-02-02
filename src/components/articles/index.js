@@ -1,20 +1,14 @@
 import tpl from './template.html';
 
 class ArticlesController {
-    constructor(articlesService, $scope) {
-        this.articles = [];
-        articlesService.getArticles()
-            .then((articles) => {
-                this.articles = articles;
-                $scope.$apply()
-            });
+    constructor(Article) {
+        this.articles = Article.query();
     }
-    
+
     getArticles(){
         return this.articles;
     }
 }
-
 
 const articlesComponent = {
     controller: ArticlesController,

@@ -6,11 +6,12 @@
   "author": "Daniil <godastan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --hot --compress --content-base public --public-path /",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --inline --hot --content-base public --public-path /",
     "build": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js"
   },
   "dependencies": {
     "angular": "^1.6.1",
+    "angular-resource": "^1.6.1",
     "angular-route": "^1.6.1"
   },
   "devDependencies": {

@@ -1,15 +1,9 @@
 import tpl from './template.html';
 
 class ArticlesAddBtnController {
-    constructor(articlesService){
-        this.articlesService = articlesService;
-    }
-    
-    click() {
-        this.articlesService.getArticles();
+    constructor(){
     }
 }
-
 
 const articlesAddBtnComponent = {
     controller: ArticlesAddBtnController,

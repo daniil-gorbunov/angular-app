@@ -1,21 +1,20 @@
 import {module} from 'angular';
 import 'angular-route';
+import 'angular-resource';
 
-import articlesService from './services/articlesService';
+import API from './constants/API';
+import MOCK from './constants/MOCK';
+import articleResource from './resources/articleResource'
 import articlesComponent from './components/articles';
 import articleFormComponent from './components/articleForm';
 import articleAddBtnComponent from './components/articleAddBtn';
 
-export default module('app', ['ngRoute'])
-    .factory('articlesService', [articlesService])
-    .controller('ArticlesController', function($scope, articlesService) {
-        $scope.name = 'BookController';
-        $scope.click = articlesService.getArticles();
-    })
+export default module('app', ['ngRoute', 'ngResource'])
+    .factory('Article', articleResource)
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                template: 'Hello, Dudes!'
+                template: 'Hello, Dudes!11'
             })
             .when('/article', {template: '<articles-component></articles-component>'})
             .when('/article/:id/edit', {template: '<article-form-component></article-form-component>'})
@@ -26,5 +25,7 @@ export default module('app', ['ngRoute'])
     .component('articlesComponent', articlesComponent)
     .component('articleFormComponent', articleFormComponent)
     .component('articleAddBtnComponent', articleAddBtnComponent)
+    .constant('API', API)
+    .constant('MOCK', MOCK)
     .name
 ;

@@ -1,30 +1,23 @@
 import tpl from './template.html';
 
 class ArticleFormController {
-    constructor(articlesService, $routeParams, $scope) {
-        this.articleID = $routeParams.id;
-        this.isNew = !$routeParams.id;
-        this.articlesService = articlesService;
-        if (this.isNew) {
-            this.article = {
-                id: null,
-                title: '',
-                description: '',
-                content: '',
-                tags: []
-            };
-        } else {
-            this.articlesService.getArticle()
-                .then((article) => {
-                    this.article = article;
-                    console.log(article);
-                    $scope.$apply();
-                })
-        }
+    constructor($routeParams, $location, Article) {
+        this.Article = Article;
+        this.$location = $location;
+
+        const articleID = $routeParams.id;
+        this.article = articleID ? Article.get({id: articleID}) : new Article();
     }
 
     saveArticle() {
-        this.articlesService.saveArticle(this.article)
+        const data = this.article;
+        if (data._id) {
+            this.article.$save()
+                .then(() => this.$location.path('/article'))
+        } else {
+            this.article.$save()
+                .then(() => this.$location.path('/article'))
+        }
     }
 }
 

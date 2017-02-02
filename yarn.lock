@@ -64,6 +64,10 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-resource@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/angular-resource/-/angular-resource-1.6.1.tgz#9eeea8c59238439ba15ad31be0eb70f2442f77a1"
+
 angular-route@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.6.1.tgz#6d1087f4d6a1422026f91a13be86adc8f1d20ec7"
