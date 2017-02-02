@@ -3,7 +3,6 @@ import 'angular-route';
 import 'angular-resource';
 
 import API from './constants/API';
-import MOCK from './constants/MOCK';
 import articleResource from './resources/articleResource'
 import articlesComponent from './components/articles';
 import articleFormComponent from './components/articleForm';
@@ -26,6 +25,5 @@ export default module('app', ['ngRoute', 'ngResource'])
     .component('articleFormComponent', articleFormComponent)
     .component('articleAddBtnComponent', articleAddBtnComponent)
     .constant('API', API)
-    .constant('MOCK', MOCK)
     .name
 ;
