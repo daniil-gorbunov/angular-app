@@ -1,20 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'cheap-module-source-map',
+    devtool: 'inline-source-map',
     devServer: {
         inline: true,
         historyApiFallback: true,
+        host: 'localhost',
+        port: 8080,
+        hot: true
     },
     entry: [
         `${require.resolve('webpack-dev-server/client')}?/`,
         require.resolve('webpack/hot/dev-server'),
         require.resolve('promise/lib/es6-extensions'),
-        require.resolve('whatwg-fetch'),
-        path.resolve(`${__dirname}/../src/index.jsx`),
+        path.resolve(`${__dirname}/../src/app.js`),
     ],
     output: {
         path: path.resolve(`${__dirname}/../build`),
@@ -22,64 +23,71 @@ module.exports = {
         publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.json', '.jsx', ''],
+        extensions: ['.js'],
     },
     module: {
-        loaders: [
+        rules: [
             {
                 exclude: [
                     /\.html$/,
-                    /\.(js|jsx)$/,
+                    /\.js$/,
                     /\.css$/,
                     /\.json$/,
                     /\.svg$/,
                     /\/$/,
                 ],
-                loader: 'url',
-                query: {
-                    limit: 10000,
-                    name: 'static/media/[name].[hash:8].[ext]',
-                },
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 10000,
+                            name: 'static/media/[name].[hash:8].[ext]',
+                        },
+                    },
+                ]
             },
             {
-                test: /\.jsx?$/,
-                include: path.resolve(`${__dirname}/../src`),
-                loader: 'babel',
-                query: {
-                    cacheDirectory: true,
-                },
+                test: /\.html$/,
+                loader: 'html-loader'
+            },
+            {
+                test: /\.pug$/,
+                use: [
+                    'pug-loader',
+                ],
+            },
+            {
+                test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            name: '[path][name].[ext]?[hash]',
+                            limit: 4096,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,
-                loader: 'style!css?importLoaders=1!postcss',
-            },
-            {
-                test: /\.json$/,
-                loader: 'json',
-            },
-            {
-                test: /\.svg$/,
-                loader: 'file',
-                query: {
-                    name: 'static/media/[name].[hash:8].[ext]',
-                },
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        },
+                    },
+                ],
             },
         ],
     },
-    postcss() {
-        return [
-            autoprefixer({
-                browsers: [
-                    '>1%',
-                    'last 2 versions',
-                ],
-            }),
-        ];
-    },
     plugins: [
         new HtmlWebpackPlugin({
-            inject: true,
-            template: path.resolve(`${__dirname}/../public/index.html`),
+            filename: 'index.html',
+            template: path.resolve(`${__dirname}/../src/index.html`),
         }),
         new webpack.DefinePlugin({
             'process.env': {

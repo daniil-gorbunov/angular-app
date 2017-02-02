@@ -6,22 +6,24 @@
   "author": "Daniil <godastan@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --hot --compress --content-base public --public-path / --host localhost",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --hot --compress --content-base public --public-path /",
+    "build": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js"
   },
   "dependencies": {
-    "angular": "^1.6.1"
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1"
   },
   "devDependencies": {
-    "autoprefixer": "^6.7.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
+    "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.28.0",
     "promise": "^7.1.1",
+    "pug": "^2.0.0-beta10",
     "pug-loader": "^2.3.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
