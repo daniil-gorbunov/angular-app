@@ -1,2 +1,6 @@
-<button ng-click="vm.click()">Click</button>
-<a ng-href="article/123/edit">Edit</a>
+<ul>
+    <li ng-repeat="article in vm.articles track by article.id">
+        <a ng-href="article/{{article.id}}/edit">{{article.title}}</a>
+    </li>
+</ul>
+<span>Totally articles: {{vm.articles.length}}</span>

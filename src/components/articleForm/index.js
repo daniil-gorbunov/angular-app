@@ -1,7 +1,7 @@
 import tpl from './template.html';
 
 class ArticleFormController {
-    constructor(articlesService, $routeParams) {
+    constructor(articlesService, $routeParams, $scope) {
         this.articleID = $routeParams.id;
         this.isNew = !$routeParams.id;
         this.articlesService = articlesService;
@@ -15,11 +15,15 @@ class ArticleFormController {
             };
         } else {
             this.articlesService.getArticle()
-                .then((article) => this.article = article)
+                .then((article) => {
+                    this.article = article;
+                    console.log(article);
+                    $scope.$apply();
+                })
         }
     }
-    
-    saveArticle(){
+
+    saveArticle() {
         this.articlesService.saveArticle(this.article)
     }
 }
