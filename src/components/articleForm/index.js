@@ -21,10 +21,13 @@ class ArticleFormController {
     }
 }
 
-const articleFormComponent = {
-    controller: ArticleFormController,
-    controllerAs: 'vm',
-    template: tpl
+const articleFormDirective = function() {
+    return {
+        restrict: 'E',
+        controller: ArticleFormController,
+        controllerAs: 'vm',
+        template: tpl
+    }
 };
 
-export default articleFormComponent;
+export default articleFormDirective;

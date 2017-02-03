@@ -5,7 +5,7 @@ import 'angular-resource';
 import API from './constants/API';
 import articleResource from './resources/articleResource'
 import articlesComponent from './components/articles';
-import articleFormComponent from './components/articleForm';
+import articleFormDirective from './components/articleForm';
 import articleAddBtnComponent from './components/articleAddBtn';
 
 export default module('app', ['ngRoute', 'ngResource'])
@@ -16,14 +16,14 @@ export default module('app', ['ngRoute', 'ngResource'])
                 template: 'Hello, Dudes!11'
             })
             .when('/article', {template: '<articles-component></articles-component>'})
-            .when('/article/:id/edit', {template: '<article-form-component></article-form-component>'})
-            .when('/article/add', {template: '<article-form-component></article-form-component>'})
+            .when('/article/add', {template: '<article-form-directive></article-form-directive>'})
+            .when('/article/:id/edit', {template: '<article-form-directive></article-form-directive>'})
         ;
         $locationProvider.html5Mode(true)
     })
     .component('articlesComponent', articlesComponent)
-    .component('articleFormComponent', articleFormComponent)
     .component('articleAddBtnComponent', articleAddBtnComponent)
+    .directive('articleFormDirective', articleFormDirective)
     .constant('API', API)
     .name
 ;
