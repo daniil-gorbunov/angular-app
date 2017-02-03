@@ -15,8 +15,10 @@
         }">
             <label for="header">Header: </label>
             <input class="form-control" type="text" name="header" id="header" ng-model="vm.article.header" required>
-            <span ng-show="form.header.$error.required" class="help-block">Header is required</span>
-            <span ng-show="form.header.$error.required" class="glyphicon glyphicon-remove form-control-feedback"></span>
+            <div ng-messages="form.header.$error">
+                <span ng-message="required" class="help-block">Header is required</span>
+            </div>
+            <span ng-show="form.header.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
         </div>
         <div class="form-group">
             <label for="description">Description: </label>
@@ -29,8 +31,8 @@
             ></textarea>
         </div>
         <div ng-class="{
-            'has-error': form.content.$error.required || form.content.$error.minlength,
-            'has-feedback': form.content.$error.required || form.content.$error.minlength,
+            'has-error': form.content.$error.required || form.content.$error.txtMinLength,
+            'has-feedback': form.content.$error.required || form.content.$error.txtMinLength,
             'form-group': true
         }">
             <label for="content">Content: </label>
@@ -40,17 +42,17 @@
                     id="content"
                     ng-model="vm.article.content"
                     rows="5"
-                    minlength="20"
+                    txt-min-length="20"
                     required
             ></textarea>
-            <span ng-show="form.content.$error.required" class="help-block">Header is required</span>
-            <span ng-show="form.content.$error.minlength" class="help-block">At least 20 symbols required</span>
-            <span ng-show="form.content.$error.required || form.content.$error.minlength"
-                  class="glyphicon glyphicon-remove form-control-feedback"
-            ></span>
+            <div ng-messages="form.content.$error">
+                <span ng-message="required" class="help-block">Content is required</span>
+                <span ng-message="txtMinLength" class="help-block">At least 20 symbols required</span>
+            </div>
+            <span ng-show="form.content.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary" ng-click="vm.saveArticle()" ng-disabled="!form.$valid">Save</button>
+            <button type="submit" class="btn btn-primary" ng-click="vm.saveArticle()" ng-disabled="form.$invalid">Save</button>
         </div>
     </form>
 </div>

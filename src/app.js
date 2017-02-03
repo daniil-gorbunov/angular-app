@@ -1,14 +1,16 @@
 import {module} from 'angular';
 import 'angular-route';
 import 'angular-resource';
+import 'angular-messages';
 
 import API from './constants/API';
 import articleResource from './resources/articleResource'
 import articlesComponent from './components/articles';
-import articleFormDirective from './components/articleForm';
 import articleAddBtnComponent from './components/articleAddBtn';
+import articleFormDirective from './components/articleForm';
+import txtMinLength from './components/validators/txtMinLength';
 
-export default module('app', ['ngRoute', 'ngResource'])
+export default module('app', ['ngRoute', 'ngResource', 'ngMessages'])
     .factory('Article', articleResource)
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
@@ -24,6 +26,7 @@ export default module('app', ['ngRoute', 'ngResource'])
     .component('articlesComponent', articlesComponent)
     .component('articleAddBtnComponent', articleAddBtnComponent)
     .directive('articleFormDirective', articleFormDirective)
+    .directive('txtMinLength', txtMinLength)
     .constant('API', API)
     .name
 ;
