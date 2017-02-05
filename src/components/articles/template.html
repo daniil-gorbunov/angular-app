@@ -1,0 +1,8 @@
+<p>
+    <span>Totally articles: {{vm.articles.length}}</span>
+    <article-add-btn-component></article-add-btn-component></p>
+<ul>
+    <li ng-repeat="article in vm.articles">
+        <a ng-href="article/{{article._id}}/edit">{{article.header}}</a>
+    </li>
+</ul>
