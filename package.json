@@ -7,7 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config config/webpack.config.dev.js --inline --hot --content-base public --public-path /",
-    "build": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js"
+    "build": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js",
+    "test": "karma start",
+    "test-debug": "karma start --browsers Chrome --single-run false --debug",
+    "coveralls": "cat ./coverage/report-lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "angular": "^1.6.1",
@@ -19,13 +22,18 @@
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-export-extensions": "^6.22.0",
+    "coveralls": "^2.11.16",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.0",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.28.0",
+    "jasmine-core": "^2.5.2",
     "karma": "^1.4.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
+    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-phantomjs2-launcher": "^0.5.0",
     "promise": "^7.1.1",

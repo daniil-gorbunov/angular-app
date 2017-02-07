@@ -14,6 +14,7 @@ module.exports = {
         require.resolve('webpack/hot/dev-server'),
         require.resolve('promise/lib/es6-extensions'),
         path.resolve(`${__dirname}/../src/app.js`),
+        // path.resolve(`${__dirname}/../test/index.js`),
     ],
     output: {
         path: path.resolve(`${__dirname}/../build`),
@@ -83,6 +84,10 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'commons',
+            filename: 'commons.js',
+        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.resolve(`${__dirname}/../src/index.html`),

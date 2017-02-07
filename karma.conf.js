@@ -2,6 +2,8 @@
 // Generated on Mon Feb 06 2017 22:35:10 GMT+0300 (Беларусь (зима))
 
 module.exports = function(config) {
+
+  const sourcePreprocessors = process.argv.some(argument => argument === '--debug') ? 'coverage' : [];
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -15,8 +17,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'src/**/*.js',
+      'src/**/*.html',
       'test/**/*test.js',
-      'test/**/*test.js'
     ],
 
 
@@ -28,14 +31,25 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'src/**/*.js': sourcePreprocessors, 
+      'src/**/*.html': ['ng-html2js']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    coverageReporter: {
+      // specify a common output directory
+      dir: 'coverage',
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' }
+      ]
+    },
 
     // web server port
     port: 9876,
