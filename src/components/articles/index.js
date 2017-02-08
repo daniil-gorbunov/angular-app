@@ -4,10 +4,6 @@ class ArticlesController {
     constructor(Article) {
         this.articles = Article.query();
     }
-
-    getArticles(){
-        return this.articles;
-    }
 }
 
 const articlesComponent = {

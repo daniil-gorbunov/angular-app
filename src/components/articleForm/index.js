@@ -10,14 +10,8 @@ class ArticleFormController {
     }
 
     saveArticle() {
-        const data = this.article;
-        if (data._id) {
-            this.article.$save()
-                .then(() => this.$location.path('/article'))
-        } else {
-            this.article.$save()
-                .then(() => this.$location.path('/article'))
-        }
+        this.article.$save()
+            .then(() => this.$location.path('/article'))
     }
 }
 
