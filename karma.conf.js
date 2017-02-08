@@ -10,13 +10,19 @@ module.exports = function(config) {
         ],
 
         preprocessors: {
+            'build/static/js/main.js': ['coverage'],
             'test/index.js': ['webpack'],
+        },
+
+        coverageReporter: {
+            type : 'html',
+            dir : 'coverage'
         },
 
         basePath: '',
         frameworks: ['jasmine'],
         exclude: [],
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
