@@ -1,101 +1,45 @@
-const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-    devtool: 'eval-source-map',
-    devServer: {
-        historyApiFallback: true,
-        host: 'localhost',
-        port: 8080,
-    },
-    entry: [
-        `${require.resolve('webpack-dev-server/client')}?/`,
-        require.resolve('webpack/hot/dev-server'),
-        require.resolve('promise/lib/es6-extensions'),
-        path.resolve(`${__dirname}/../src/app.js`),
-        // path.resolve(`${__dirname}/../test/index.js`),
-    ],
+    entry: path.resolve(`${__dirname}/../src/app.js`),
     output: {
         path: path.resolve(`${__dirname}/../build`),
-        filename: 'static/js/bundle.js',
-        publicPath: '/',
+        filename: 'static/js/[name].js',
+        publicPath: '/'
     },
+
+    devtool: 'inline-source-map',
+    devServer: {
+        inline: true,
+        historyApiFallback: true
+    },
+    watch: true,
+
     resolve: {
-        extensions: ['.js'],
+        extensions: ['', '.js'],
     },
     module: {
-        rules: [
-            {
-                exclude: [
-                    /\.html$/,
-                    /\.js$/,
-                    /\.css$/,
-                    /\.json$/,
-                    /\.svg$/,
-                    /\/$/,
-                ],
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 10000,
-                            name: 'static/media/[name].[hash:8].[ext]',
-                        },
-                    },
-                ]
-            },
-            {
-                test: /\.html$/,
-                loader: 'html-loader'
-            },
-            {
-                test: /\.pug$/,
-                use: [
-                    'pug-loader',
-                ],
-            },
-            {
-                test: /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            name: '[path][name].[ext]?[hash]',
-                            limit: 4096,
-                        },
-                    },
-                ],
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    {
-                        loader: 'style-loader',
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                        },
-                    },
-                ],
-            },
-        ],
+        loaders: [{
+            test: /.js?$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+            query: {
+                presets: ['es2015', 'stage-2']
+            }
+        }, {
+            test: /\.css$/,
+            loader: ExtractTextPlugin.extract('style-loader!css-loader')
+        }, {
+            test: /\.html$/,
+            loader: 'html'
+        }]
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'commons',
-            filename: 'commons.js',
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: path.resolve(`${__dirname}/../src/index.html`),
-        }),
+        new ExtractTextPlugin('styles.css'),
         new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-            },
-        }),
-    ],
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        })
+    ]
 };

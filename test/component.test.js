@@ -1,7 +1,7 @@
 import app from '../src/app';
 
-describe('ArticleFormDirective', function () {
-    let mockArticle, httpBackend, url;
+describe('ArticleComponent', function () {
+    let element, httpBackend, mockArticle, url;
     const articlesList = [
         {
             _id: 1,
@@ -25,16 +25,22 @@ describe('ArticleFormDirective', function () {
         url = `${API.BASE_URL}${API.ARTICLE}`;
     }));
 
-    afterEach(function() {
+    beforeEach(angular.mock.inject(function ($rootScope, $compile) {
+        httpBackend.expectGET(url).respond(articlesList);
+        element = $compile('<articles-component></articles-component>')($rootScope);
+        httpBackend.flush();
+    }));
+
+    afterEach(function () {
         httpBackend.verifyNoOutstandingExpectation();
         httpBackend.verifyNoOutstandingRequest();
     });
-    
-    it('should pass', angular.mock.inject(function (Article) {
-        httpBackend.expectGET(url).respond(articlesList);
-        const result = mockArticle.query();
-        httpBackend.flush();
 
-        expect(result[0].header).toEqual('Article 1');
-    }));
+    it('should render article for any entity in array', function () {
+        expect(element.find('li').length).toBe(articlesList.length);
+    });
+
+    it('should render each entity correctly', function () {
+        expect(element.find('ul').find('a').eq(0).text()).toEqual('Article 1');
+    });
 });
